@@ -18,6 +18,19 @@ class TestTrebuchetCalibrator(TestCase):
         self.assertEqual(14, get_calibration_value(line="zoneight234"))
         self.assertEqual(76, get_calibration_value(line="7pqrstsixteen"))
 
+        self.assertEqual(12, get_calibration_value("onetwo"))
+        self.assertEqual(12, get_calibration_value("1two"))
+        self.assertEqual(12, get_calibration_value("one2"))
+        self.assertEqual(12, get_calibration_value("12"))
+        self.assertEqual(13, get_calibration_value("onetwothree"))
+        self.assertEqual(13, get_calibration_value("12three"))
+        self.assertEqual(13, get_calibration_value("1two3"))
+        self.assertEqual(13, get_calibration_value("one23"))
+        self.assertEqual(13, get_calibration_value("onetwo3"))
+        self.assertEqual(13, get_calibration_value("one2three"))
+        self.assertEqual(13, get_calibration_value("1twothree"))
+        self.assertEqual(13, get_calibration_value("123"))
+
     def test_calculate(self):
         self.assertEqual(142, calculate(lines=[
             "1abc2",
