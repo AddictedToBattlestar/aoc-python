@@ -1,5 +1,5 @@
 from unittest import TestCase
-from day1_trebuchetCalibrator.trebuchetCalibrator import get_calibration_value, calculate, calculate_from_file
+from day1_trebuchet_calibrator.trebuchet_calibrator import get_calibration_value, calculate, calculate_from_file
 
 
 class TestTrebuchetCalibrator(TestCase):
@@ -40,7 +40,7 @@ class TestTrebuchetCalibrator(TestCase):
         ]))
 
     def test_calculate_from_file(self):
-        self.assertEqual(142, calculate_from_file(file_name="../day1_trebuchetCalibrator/day1-part1-sample-data.txt"))
+        self.assertEqual(142, calculate_from_file(file_name="../day1_trebuchet_calibrator/day1-part1-sample-data.txt"))
 
     def test_calculate_from_file_part2(self):
-        self.assertEqual(281, calculate_from_file(file_name="../day1_trebuchetCalibrator/day1-part2-sample-data.txt"))
+        self.assertEqual(281, calculate_from_file(file_name="../day1_trebuchet_calibrator/day1-part2-sample-data.txt"))
