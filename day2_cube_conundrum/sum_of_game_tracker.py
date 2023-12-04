@@ -2,12 +2,12 @@ from day2_cube_conundrum.bag_contents import BagContents
 from day2_cube_conundrum.game_contents import GameContents
 
 
-class GameTracker:
+class SumOfGameTracker:
     def __init__(self, bag_contents: BagContents):
         self.sum_of_games_possible = 0
         self.bag_contents = bag_contents
 
-    def process_game(self, game_data):
+    def process_sum_of_games_possible(self, game_data):
         game_contents = GameContents(game_data)
         if self.bag_contents.red_count >= game_contents.highest_red_count:
             if self.bag_contents.blue_count >= game_contents.highest_blue_count:
@@ -25,3 +25,6 @@ class GameTracker:
                   f'cubes ({game_contents.highest_red_count} in game > {self.bag_contents.red_count} available)')
         print(f'Sum of games possible: {self.sum_of_games_possible}')
         return self.sum_of_games_possible
+
+    def process_power_of_sets(self):
+        return 0
