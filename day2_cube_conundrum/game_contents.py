@@ -1,4 +1,5 @@
-import day2_cube_conundrum
+from utilities.split_strip import split_strip
+
 
 class GameContents:
     def __init__(self, game_data):
@@ -13,9 +14,9 @@ class GameContents:
         self.id = int(id_text.split(" ")[1].strip())
 
         for game_text in games_text.split(";"):
-            cubes = self.split_strip(game_text, ",")
+            cubes = split_strip(game_text, ",")
             for cube in cubes:
-                count_text, color, = self.split_strip(cube, " ")
+                count_text, color, = split_strip(cube, " ")
                 count = int(count_text)
                 if color == "red":
                     if self.highest_red_count < count:
@@ -26,7 +27,3 @@ class GameContents:
                 elif color == "blue":
                     if self.highest_blue_count < count:
                         self.highest_blue_count = count
-
-    @staticmethod
-    def split_strip(text, split_character):
-        return [x.strip() for x in text.split(split_character)]
