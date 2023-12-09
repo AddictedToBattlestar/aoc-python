@@ -1,5 +1,6 @@
 from unittest import TestCase
-from day4_scratchcards.scratch_card_processor import get_winning_numbers, calculate_total_points, calculate_from_file
+from day4_scratchcards.scratch_card_processor_part1 import get_winning_numbers, calculate_total_points
+from day4_scratchcards.scratch_card_processor_part1 import calculate_from_file
 
 
 class TestScratchCardProcessor(TestCase):
