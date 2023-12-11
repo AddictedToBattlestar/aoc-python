@@ -1,6 +1,7 @@
 import string
 import array
 
+from day8_haunted_wasteland.file_reader import read_file
 from day8_haunted_wasteland.network_mapper import NetworkMapper
 
 
@@ -31,21 +32,11 @@ def calculate(starting_location_ids: array,
 
 
 def calculate_from_file(file_name: string) -> int:
-    with open(file_name, "r") as text_file:
-        line_number = 1
-        instructions = None
-        lines = text_file.readlines()
-        network_mapper = NetworkMapper()
-        for line in lines:
-            if line_number == 1:
-                instructions = line.strip()
-            else:
-                if line_number > 2:
-                    network_mapper.add_node(line)
-            line_number += 1
-        return calculate(starting_location_ids=network_mapper.starting_node_ids,
-                         network=network_mapper.network,
-                         instructions=instructions)
+    instructions, network_mapper = read_file(file_name)
+    return calculate(starting_location_ids=network_mapper.starting_node_ids,
+                     network=network_mapper.network,
+                     instructions=instructions)
+
 
 if __name__ == '__main__':
     result = calculate_from_file(file_name="day8_data.txt")

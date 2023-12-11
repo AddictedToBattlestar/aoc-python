@@ -1,5 +1,6 @@
 import string
 
+from day8_haunted_wasteland.file_reader import read_file
 from day8_haunted_wasteland.network_mapper import NetworkMapper
 
 
@@ -29,22 +30,11 @@ def calculate(network: dict,
 def calculate_from_file(file_name: string,
                         starting_location: string,
                         target_location: string) -> int:
-    with open(file_name, "r") as text_file:
-        line_number = 1
-        instructions = None
-        lines = text_file.readlines()
-        network_mapper = NetworkMapper()
-        for line in lines:
-            if line_number == 1:
-                instructions = line.strip()
-            else:
-                if line_number > 2:
-                    network_mapper.add_node(line)
-            line_number += 1
-        return calculate(network=network_mapper.network,
-                         instructions=instructions,
-                         starting_location=starting_location,
-                         target_location=target_location)
+    instructions, network_mapper = read_file(file_name)
+    return calculate(network=network_mapper.network,
+                     instructions=instructions,
+                     starting_location=starting_location,
+                     target_location=target_location)
 
 
 if __name__ == '__main__':
