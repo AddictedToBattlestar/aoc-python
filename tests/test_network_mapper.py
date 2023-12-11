@@ -7,6 +7,7 @@ class TestNetworkMapper(TestCase):
         subject = NetworkMapper()
         subject.add_node("AAA = (BBB, CCC)")
         self.assertEqual({"AAA": ("BBB", "CCC")}, subject.network)
+        self.assertEqual(["AAA"], subject.starting_node_ids)
 
     def test_add_nodes(self):
         subject = NetworkMapper()
@@ -18,3 +19,17 @@ class TestNetworkMapper(TestCase):
             "AAA": ("BBB", "BBB"),
             "BBB": ("AAA", "AAA")
         }, subject.network)
+        self.assertEqual(["AAA"], subject.starting_node_ids)
+
+    def test_starting_nodes(self):
+        subject = NetworkMapper()
+        self.assertEqual([], subject.starting_node_ids)
+        subject.add_nodes([
+            "AAA = (BBB, BBB)",
+            "BBB = (AAA, AAA)",
+            "BBA = (BBB, AAA)",
+            "ABB = (AAA, BBB)",
+            "AAB = (BBB, AAA)"
+        ])
+        self.assertEqual(["AAA", "BBA"], subject.starting_node_ids)
+
