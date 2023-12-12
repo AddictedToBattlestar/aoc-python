@@ -5,7 +5,7 @@ from typing import Optional
 def calculate(network: dict,
               instructions: str,
               starting_location_id: str,
-              target_location_id: Optional[str] = None) -> int:
+              target_location_id: Optional[str] = None):
     current_location = network[starting_location_id]
     current_location_id = starting_location_id
     steps_taken = 0
@@ -18,7 +18,7 @@ def calculate(network: dict,
                 f"At location {current_location_id}, taking step number {steps_taken} going {direction} to location {next_location_id}.")
             if is_at_target_location(next_location_id, target_location_id):
                 print(f"The {next_location_id} target location has been reached")
-                return steps_taken
+                return steps_taken, next_location_id
             else:
                 current_location_id = next_location_id
                 current_location = network[current_location_id]
