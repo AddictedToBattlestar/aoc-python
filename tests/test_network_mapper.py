@@ -33,3 +33,15 @@ class TestNetworkMapper(TestCase):
         ])
         self.assertEqual(["AAA", "BBA"], subject.starting_node_ids)
 
+    def test_terminating_nodes(self):
+        subject = NetworkMapper()
+        self.assertEqual([], subject.terminating_node_ids)
+        subject.add_nodes([
+            "AAA = (BBB, BBB)",
+            "ZZZ = (AAA, AAA)",
+            "ZZA = (BBB, AAA)",
+            "AZZ = (AAA, BBB)",
+            "AAZ = (BBB, AAA)"
+        ])
+        self.assertEqual(["ZZZ", "AZZ", "AAZ"], subject.terminating_node_ids)
+

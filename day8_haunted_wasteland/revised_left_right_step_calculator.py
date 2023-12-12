@@ -1,13 +1,11 @@
-import string
 import array
 
 from day8_haunted_wasteland.file_reader import read_file
-from day8_haunted_wasteland.network_mapper import NetworkMapper
 
 
 def calculate(starting_location_ids: array,
               network: dict,
-              instructions: string) -> int:
+              instructions: str) -> int:
     current_location_ids = starting_location_ids
     print(f"Starting at locations: {current_location_ids}")
     steps_taken = 0
@@ -31,7 +29,7 @@ def calculate(starting_location_ids: array,
                     f"Direction taken {direction}, now at locations {current_location_ids}, steps taken: {steps_taken}")
 
 
-def calculate_from_file(file_name: string) -> int:
+def calculate_from_file(file_name: str) -> int:
     instructions, network_mapper = read_file(file_name)
     return calculate(starting_location_ids=network_mapper.starting_node_ids,
                      network=network_mapper.network,

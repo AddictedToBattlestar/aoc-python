@@ -1,7 +1,6 @@
 import array
-import string
 
 class GridSymbol():
-    def __init__(self, symbol: string, coordinate: array):
+    def __init__(self, symbol: str, coordinate: array):
         self.symbol = symbol
         self.coordinate = coordinate
