@@ -1,6 +1,6 @@
 from unittest import TestCase
 from day8_haunted_wasteland.network_mapper import NetworkMapper
-from day8_haunted_wasteland.step_calculator import calculate
+from day8_haunted_wasteland.step_calculator import calculate, calculate_from_file
 
 
 class Test(TestCase):
@@ -16,5 +16,8 @@ class Test(TestCase):
             "22Z = (22B, 22B)",
             "XXX = (XXX, XXX)"
         ])
-        number_of_steps = calculate(instructions="LR", network_mapper=network_mapper.network)
+        number_of_steps = calculate(instructions="LR", network_mapper=network_mapper)
         self.assertEqual(6, number_of_steps)
+
+    def test_calculate_from_file(self):
+        self.assertEqual(6, calculate_from_file(file_name="../day8_haunted_wasteland/day8_data_sample.txt"))
