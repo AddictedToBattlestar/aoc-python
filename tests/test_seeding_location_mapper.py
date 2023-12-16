@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from day5_seed_fertilizer.seeding_location_mapper import SeedingLocationMapper, SeedingMap, SeedingCategoryProcessor, \
-    calculate_from_file
+    calculate_from_file, find_seed_numbers
 
 
 class TestLocationMap(TestCase):
@@ -38,7 +38,7 @@ class TestSeedingLocationMapper(TestCase):
 
 class TestSeedingCategoryProcessor(TestCase):
     def test_find_location_number(self):
-        subject = self.setupSeedingCategoryProcessorData()
+        subject = setup_seeding_category_processor_data()
 
         self.assertEqual(82, subject.find_location_number(79))
         self.assertEqual(43, subject.find_location_number(14))
@@ -46,53 +46,71 @@ class TestSeedingCategoryProcessor(TestCase):
         self.assertEqual(35, subject.find_location_number(13))
 
     def test_find_lowest_location_number(self):
-        subject = self.setupSeedingCategoryProcessorData()
+        subject = setup_seeding_category_processor_data()
         self.assertEqual(35, subject.find_lowest_location_number("79 14 55 13"))
 
     def test_calculate_from_file(self):
         self.assertEqual(35, calculate_from_file("../day5_seed_fertilizer/day5_sample_data.txt"))
 
-    def setupSeedingCategoryProcessorData(self):
-        seed_to_soil_mapper = SeedingLocationMapper([
-            "50 98 2",
-            "52 50 48"
-        ])
-        soil_to_fertilizer_mapper = SeedingLocationMapper([
-            "0 15 37",
-            "37 52 2",
-            "39 0 15"
-        ])
-        fertilizer_to_water_mapper = SeedingLocationMapper([
-            "49 53 8",
-            "0 11 42",
-            "42 0 7",
-            "57 7 4"
-        ])
-        water_to_light_mapper = SeedingLocationMapper([
-            "88 18 7",
-            "18 25 70"
-        ])
-        light_to_temperature_mapper = SeedingLocationMapper([
-            "45 77 23",
-            "81 45 19",
-            "68 64 13"
-        ])
-        temperature_to_humidity_mapper = SeedingLocationMapper([
-            "0 69 1",
-            "1 0 69"
-        ])
-        humidity_to_location_mapper = SeedingLocationMapper([
-            "60 56 37",
-            "56 93 4"
-        ])
-        seeding_mappers = [
-            seed_to_soil_mapper,
-            soil_to_fertilizer_mapper,
-            fertilizer_to_water_mapper,
-            water_to_light_mapper,
-            light_to_temperature_mapper,
-            temperature_to_humidity_mapper,
-            humidity_to_location_mapper
-        ]
-        subject = SeedingCategoryProcessor(seeding_mappers)
-        return subject
+    def test_find_lowest_location_number_using_seed_number_revisions(self):
+        subject = setup_seeding_category_processor_data()
+        self.assertEqual(46, subject.find_lowest_location_number(raw_seed_numbers="79 14 55 13", use_revised_seeding_map=True))
+
+    def test_calculate_from_file_using_seed_number_revisions(self):
+        self.assertEqual(46, calculate_from_file(file_name="../day5_seed_fertilizer/day5_sample_data.txt",
+                                                 use_revised_seeding_map=True))
+
+
+def setup_seeding_category_processor_data():
+    seed_to_soil_mapper = SeedingLocationMapper([
+        "50 98 2",
+        "52 50 48"
+    ])
+    soil_to_fertilizer_mapper = SeedingLocationMapper([
+        "0 15 37",
+        "37 52 2",
+        "39 0 15"
+    ])
+    fertilizer_to_water_mapper = SeedingLocationMapper([
+        "49 53 8",
+        "0 11 42",
+        "42 0 7",
+        "57 7 4"
+    ])
+    water_to_light_mapper = SeedingLocationMapper([
+        "88 18 7",
+        "18 25 70"
+    ])
+    light_to_temperature_mapper = SeedingLocationMapper([
+        "45 77 23",
+        "81 45 19",
+        "68 64 13"
+    ])
+    temperature_to_humidity_mapper = SeedingLocationMapper([
+        "0 69 1",
+        "1 0 69"
+    ])
+    humidity_to_location_mapper = SeedingLocationMapper([
+        "60 56 37",
+        "56 93 4"
+    ])
+    seeding_mappers = [
+        seed_to_soil_mapper,
+        soil_to_fertilizer_mapper,
+        fertilizer_to_water_mapper,
+        water_to_light_mapper,
+        light_to_temperature_mapper,
+        temperature_to_humidity_mapper,
+        humidity_to_location_mapper
+    ]
+    subject = SeedingCategoryProcessor(seeding_mappers)
+    return subject
+
+
+class Test(TestCase):
+    def test_find_seed_numbers(self):
+        self.assertEqual([79, 14, 55, 13], find_seed_numbers("79 14 55 13"))
+
+    def test_find_seed_numbers_using_range(self):
+        self.assertEqual([79,80,81,82,83,84,85,86,87,88,89,90,91,92,55,56,57,58,59,60,61,62,63,64,65,66,67],
+                         find_seed_numbers(raw_seed_numbers="79 14 55 13", use_revised_seeding_map=True))

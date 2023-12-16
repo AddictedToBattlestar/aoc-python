@@ -30,6 +30,24 @@ class SeedingLocationMapper:
         return destination_location
 
 
+def find_seed_numbers(raw_seed_numbers, use_revised_seeding_map: Optional[bool] = False):
+    seed_values = split_strip_to_int(raw_seed_numbers, " ")
+    if not use_revised_seeding_map:
+        return seed_values
+
+    seed_numbers = []
+    current_seed_number = None
+    for seed_value_index, seed_value in enumerate(seed_values):
+        if seed_value_index % 2 == 0:
+            current_seed_number = seed_value
+            seed_numbers.append(seed_value)
+        else:
+            for _ in range(seed_value - 1):
+                current_seed_number += 1
+                seed_numbers.append(current_seed_number)
+    return seed_numbers
+
+
 class SeedingCategoryProcessor:
     def __init__(self, seeding_mappers):
         self.seeding_mappers = seeding_mappers
@@ -40,8 +58,8 @@ class SeedingCategoryProcessor:
             current_mapped_value = seeding_map.get_destination_location(current_mapped_value)
         return current_mapped_value
 
-    def find_lowest_location_number(self, raw_seed_numbers):
-        seed_numbers = split_strip_to_int(raw_seed_numbers, " ")
+    def find_lowest_location_number(self, raw_seed_numbers, use_revised_seeding_map: Optional[bool] = False):
+        seed_numbers = find_seed_numbers(raw_seed_numbers, use_revised_seeding_map)
         lowest_location_number = None
         for seed_number in seed_numbers:
             location_number = self.find_location_number(seed_number)
@@ -50,7 +68,7 @@ class SeedingCategoryProcessor:
         return lowest_location_number
 
 
-def calculate_from_file(file_name):
+def calculate_from_file(file_name, use_revised_seeding_map: Optional[bool] = False):
     with open(file_name, "r") as text_file:
         lines = text_file.readlines()
 
@@ -72,9 +90,9 @@ def calculate_from_file(file_name):
 
         processor = SeedingCategoryProcessor(seeding_mappers)
 
-        return processor.find_lowest_location_number(raw_seed_numbers)
+        return processor.find_lowest_location_number(raw_seed_numbers, use_revised_seeding_map)
 
 
 if __name__ == '__main__':
-    result = calculate_from_file("day5_data.txt")
+    result = calculate_from_file(file_name="day5_data.txt", use_revised_seeding_map=True)
     print(f"The lowest location number found for the initial seed numbers is {result}")
