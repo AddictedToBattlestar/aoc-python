@@ -8,6 +8,11 @@ def get_values(raw_data):
     return split_strip_to_int(raw_value_data, " ")
 
 
+def get_revised_values(raw_data):
+    raw_value_data = raw_data.split(":")[1].replace(" ", "")
+    return int(raw_value_data)
+
+
 def get_min_button_time(total_time_allowed=7, minimum_distance=9) -> Optional[int]:
     for button_time in range(1, total_time_allowed - 1):
         distance_travelled = button_time * (total_time_allowed - button_time)
@@ -47,6 +52,17 @@ def get_total_number_of_ways_to_win_from_file(file_name):
         return get_total_number_of_ways_to_win(total_times_allowed, minimum_distances)
 
 
+def get_total_revised_number_of_ways_to_win_from_file(file_name):
+    with open(file_name, "r") as text_file:
+        total_times_allowed = get_revised_values(text_file.readline())
+        minimum_distances = get_revised_values(text_file.readline())
+        return get_number_of_ways_to_win(total_times_allowed, minimum_distances)
+
+
 if __name__ == '__main__':
     result = get_total_number_of_ways_to_win_from_file(file_name="day6_data.txt")
     print(f"The total number of ways you could beat the record in each race is {result}")
+
+
+    result = get_total_revised_number_of_ways_to_win_from_file(file_name="day6_data.txt")
+    print(f"(part2) The revised total number of ways you could beat the record in each race is {result}")
