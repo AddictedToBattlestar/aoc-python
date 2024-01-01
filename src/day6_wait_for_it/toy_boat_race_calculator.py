@@ -1,7 +1,9 @@
+import logging
 from typing import Optional
 
 from src.utilities.split_strip_to_int import split_strip_to_int
 
+logger = logging.getLogger(__name__)
 
 def get_values(raw_data):
     raw_value_data = raw_data.split(":")[1]
@@ -33,7 +35,7 @@ def get_number_of_ways_to_win(total_time_allowed, minimum_distance):
     max_button_time = get_max_button_time(total_time_allowed, minimum_distance)
     min_button_time = get_min_button_time(total_time_allowed, minimum_distance)
     result = max_button_time - min_button_time + 1
-    print(
+    logger.info(
         f"Total time allowed: {total_time_allowed}, minimum distance: {minimum_distance}. Button time - min:{min_button_time}, max:{max_button_time}, number of ways to win: {result}")
     return result
 
@@ -61,8 +63,8 @@ def get_total_revised_number_of_ways_to_win_from_file(file_name):
 
 if __name__ == '__main__':
     result = get_total_number_of_ways_to_win_from_file(file_name="day6_data.txt")
-    print(f"The total number of ways you could beat the record in each race is {result}")
+    logger.warning(f"The total number of ways you could beat the record in each race is {result}")
 
 
     result = get_total_revised_number_of_ways_to_win_from_file(file_name="day6_data.txt")
-    print(f"(part2) The revised total number of ways you could beat the record in each race is {result}")
+    logger.warning(f"(part2) The revised total number of ways you could beat the record in each race is {result}")

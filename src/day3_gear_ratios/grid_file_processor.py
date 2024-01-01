@@ -1,4 +1,8 @@
+import logging
+
 from src.day3_gear_ratios.grid_processor import GridProcessor
+
+logger = logging.getLogger(__name__)
 
 
 def process_file_for_sum_of_part_numbers(file_name):
@@ -10,6 +14,6 @@ def process_file_for_sum_of_part_numbers(file_name):
 
 if __name__ == '__main__':
     result = process_file_for_sum_of_part_numbers(file_name="day3-data.txt")
-    print(f'The solution for Day 3 is: {result}')
+    logger.warning(f'The solution for Day 3 is: {result}')
     # day 1 555475, too high
     # day 1 548370, too high

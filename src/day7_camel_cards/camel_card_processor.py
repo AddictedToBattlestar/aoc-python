@@ -1,5 +1,9 @@
+import logging
+
 from src.day7_camel_cards.camel_card_calculator import get_ranking_of_hand, calculate_ranking_value
 from src.utilities.file_reader import read_lines_from_file
+
+logger = logging.getLogger(__name__)
 
 
 class CamelCardBid:
@@ -9,14 +13,15 @@ class CamelCardBid:
 
         self.general_ranking, self.highest_card_ranking, self.second_highest_card_ranking \
             = get_ranking_of_hand(raw_hand_data)
-        print(f"General ranking of {raw_hand_data}: {self.general_ranking}, {self.highest_card_ranking}, {self.second_highest_card_ranking}")
+
+        logger.info(
+            f"General ranking of {raw_hand_data}: {self.general_ranking}, {self.highest_card_ranking}, {self.second_highest_card_ranking}")
 
         self.value_of_hand = calculate_ranking_value(self.general_ranking,
                                                      self.highest_card_ranking,
                                                      self.second_highest_card_ranking)
 
-        print(f"Value of {raw_hand_data}: {self.value_of_hand}")
-
+        logger.info(f"Value of {raw_hand_data}: {self.value_of_hand}")
 
 
 def order_bids_by_value_of_hand(camel_bid_list):
@@ -49,6 +54,5 @@ def get_total_winnings_from_file(file_name):
 
 if __name__ == '__main__':
     result = get_total_winnings_from_file(file_name="day7_data.txt")
-    print(f"The total winnings are {result}")
+    logger.warning(f"The total winnings are {result}")
     # 246838469 too low
-

@@ -1,8 +1,11 @@
 import array
+import logging
 
 from src.day8_haunted_wasteland.file_reader import read_file
 from src.day8_haunted_wasteland.network_mapper import NetworkMapper
 from src.day8_haunted_wasteland.left_right_step_calculator import calculate as left_right_step_calculator
+
+logger = logging.getLogger(__name__)
 
 
 def calculate_from_file(file_name: str):
@@ -27,11 +30,11 @@ def calculate(instructions: str, network_mapper: NetworkMapper) -> int:
 
 
 def calculate_in_parallel(starting_location_ids: array, possible_network_paths: dict) -> int:
-    print(f"Calculating steps in parallel.  Starting at locations: {starting_location_ids}")
+    logger.info(f"Calculating steps in parallel.  Starting at locations: {starting_location_ids}")
     step_trackers, current_count_of_steps = setup_step_tracking(starting_location_ids, possible_network_paths)
     are_steps_in_sync = False
     while not are_steps_in_sync:
-        print(f"Current count of steps taken: {current_count_of_steps}")
+        logger.info(f"Current count of steps taken: {current_count_of_steps}")
         are_steps_in_sync = True
         for step_tracker in step_trackers:
             if step_tracker.steps_taken < current_count_of_steps:
@@ -41,7 +44,7 @@ def calculate_in_parallel(starting_location_ids: array, possible_network_paths: 
                 if current_count_of_steps < step_tracker.steps_taken:
                     current_count_of_steps = step_tracker.steps_taken
 
-    print(f"Steps taken are in sync for the separate paths taken: {current_count_of_steps}")
+    logger.info(f"Steps taken are in sync for the separate paths taken: {current_count_of_steps}")
     return current_count_of_steps
 
 
@@ -57,7 +60,7 @@ def setup_step_tracking(current_location_ids, possible_network_paths: dict):
 
 
 def print_taking_step(current_location_id: str, new_location_id: str, steps_taken: int):
-    print(f"Taking step: {current_location_id}->{new_location_id}, steps taken: {steps_taken}")
+    logger.info(f"Taking step: {current_location_id}->{new_location_id}, steps taken: {steps_taken}")
 
 
 class StepTracker:
@@ -75,4 +78,4 @@ class StepTracker:
 
 if __name__ == '__main__':
     result = calculate_from_file(file_name="day8_data.txt")
-    print(f'The solution for Day 8 is: {result}')
+    logger.warning(f'The solution for Day 8 is: {result}')

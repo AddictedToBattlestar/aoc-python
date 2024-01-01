@@ -1,5 +1,9 @@
+import logging
+
 from src.day4_scratchcards.scratch_card_utilities import get_card_number, get_numbers, get_matching_numbers
 from src.utilities.split_strip import split_strip
+
+logger = logging.getLogger(__name__)
 
 
 class CardInfo:
@@ -30,17 +34,17 @@ def calculate_total_cards(starting_raw_cards):
     total_cards = 0
     current_index = 0
     for card_info in card_stack:
-        print(
+        logger.info(
             f'Evaluating card: {card_info.card_number}, matching numbers count: {card_info.matching_number_count}, current number of copies: {card_info.count}')
         if card_info.matching_number_count > 0:
             for offset in range(1, card_info.matching_number_count + 1):
                 if len(card_stack) > current_index + offset:
                     card_being_awarded = card_stack[current_index + offset]
-                    print(f'Awarding {card_info.count} copies of card number {card_being_awarded.card_number}')
+                    logger.info(f'Awarding {card_info.count} copies of card number {card_being_awarded.card_number}')
                     card_being_awarded.count += card_info.count
         total_cards += card_info.count
         current_index += 1
-    print(f'Total number of cards now in the stack: {total_cards}')
+    logger.info(f'Total number of cards now in the stack: {total_cards}')
     return total_cards
 
 
@@ -52,4 +56,4 @@ def __count_matching_numbers(raw_number_data):
 
 if __name__ == '__main__':
     result = calculate_from_file("day4-data.txt")
-    print(f'The solution for Day 4 part 2 is: {result}')
+    logger.warning(f'The solution for Day 4 part 2 is: {result}')

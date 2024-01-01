@@ -1,5 +1,9 @@
+import logging
+
 from src.day4_scratchcards.scratch_card_utilities import get_numbers, get_matching_numbers, get_card_number
 from src.utilities.split_strip import split_strip
+
+logger = logging.getLogger(__name__)
 
 
 def calculate_from_file(file_name):
@@ -21,7 +25,7 @@ def get_winning_numbers(raw_card_data):
     winning_numbers, card_numbers = get_numbers(raw_number_data)
     matching_numbers = get_matching_numbers(card_numbers, winning_numbers)
     points = __get_points(matching_numbers)
-    print(f'Card: {card_number}, points won: {points}, matching numbers: {matching_numbers}')
+    logger.info(f'Card: {card_number}, points won: {points}, matching numbers: {matching_numbers}')
     return points
 
 
@@ -34,4 +38,4 @@ def __get_points(matching_numbers):
 
 if __name__ == '__main__':
     result = calculate_from_file("day4-data.txt")
-    print(f'The solution for Day 4 is: {result}')
+    logger.warning(f'The solution for Day 4 is: {result}')

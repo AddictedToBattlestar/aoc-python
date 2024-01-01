@@ -1,13 +1,16 @@
 import array
+import logging
 
 from src.day8_haunted_wasteland.file_reader import read_file
+
+logger = logging.getLogger(__name__)
 
 
 def calculate(starting_location_ids: array,
               network: dict,
               instructions: str) -> int:
     current_location_ids = starting_location_ids
-    print(f"Starting at locations: {current_location_ids}")
+    logger.info(f"Starting at locations: {current_location_ids}")
     steps_taken = 0
     while True:
         for direction in instructions:
@@ -22,10 +25,10 @@ def calculate(starting_location_ids: array,
             current_location_ids = next_location_ids
             steps_taken += 1
             if target_found:
-                print(f"The target locations have been reached: {current_location_ids}, steps taken: {steps_taken}")
+                logger.info(f"The target locations have been reached: {current_location_ids}, steps taken: {steps_taken}")
                 return steps_taken
             else:
-                print(
+                logger.info(
                     f"Direction taken {direction}, now at locations {current_location_ids}, steps taken: {steps_taken}")
 
 
@@ -38,4 +41,4 @@ def calculate_from_file(file_name: str) -> int:
 
 if __name__ == '__main__':
     result = calculate_from_file(file_name="day8_data.txt")
-    print(f'The solution for Day 8 is: {result}')
+    logger.warning(f'The solution for Day 8 is: {result}')

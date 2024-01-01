@@ -1,4 +1,8 @@
+import logging
+
 from src.day2_cube_conundrum.power_of_sets_game_tracker import PowerOfSetsGameTracker
+
+logger = logging.getLogger(__name__)
 
 
 def process_file_for_power_of_sets(file_name):
@@ -12,4 +16,4 @@ def process_file_for_power_of_sets(file_name):
 
 if __name__ == '__main__':
     result = process_file_for_power_of_sets(file_name="day2-data.txt")
-    print(f'The solution for Day 1 is: {result}')
+    logger.warning(f'The solution for Day 1 is: {result}')

@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 numbers = {
     "one": 1,
     "two": 2,
@@ -65,7 +69,7 @@ def calculate(lines):
     for line in lines:
         line_value = get_calibration_value(line=line)
         calibration_value += line_value
-        print(f'line_number {str(line_number)}, line_value = {line_value}, calibration_value = {calibration_value}, value = {line}')
+        logger.info(f'line_number {str(line_number)}, line_value = {line_value}, calibration_value = {calibration_value}, value = {line}')
         line_number += 1
     return calibration_value
 
@@ -78,6 +82,6 @@ def calculate_from_file(file_name):
 
 if __name__ == '__main__':
     result = calculate_from_file(file_name="day1-data.txt")
-    print(f'The solution for Day 1 is: {result}')
+    logger.warning(f'The solution for Day 1 is: {result}')
     # part 1: 54159
     # part 2: 53900, too high

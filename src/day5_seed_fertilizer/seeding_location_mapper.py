@@ -1,7 +1,10 @@
-from typing import Optional
+import logging
 
+from typing import Optional
 from src.utilities.split_strip import split_strip
 from src.utilities.split_strip_to_int import split_strip_to_int
+
+logger = logging.getLogger(__name__)
 
 
 class SeedingMap:
@@ -26,7 +29,7 @@ class SeedingLocationMapper:
                 destination_location = source_location + seeding_map.offset
                 break
         if self.name is not None:
-            print(f"{self.name} maps {source_location} to {destination_location}")
+            logger.info(f"{self.name} maps {source_location} to {destination_location}")
         return destination_location
 
 
@@ -95,4 +98,4 @@ def calculate_from_file(file_name, use_revised_seeding_map: Optional[bool] = Fal
 
 if __name__ == '__main__':
     result = calculate_from_file(file_name="day5_data.txt", use_revised_seeding_map=True)
-    print(f"The lowest location number found for the initial seed numbers is {result}")
+    logger.warning(f"The lowest location number found for the initial seed numbers is {result}")

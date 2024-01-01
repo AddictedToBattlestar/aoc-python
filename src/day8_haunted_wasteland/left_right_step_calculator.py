@@ -1,5 +1,9 @@
+import logging
+
 from src.day8_haunted_wasteland.file_reader import read_file
 from typing import Optional
+
+logger = logging.getLogger(__name__)
 
 
 def calculate(network: dict,
@@ -14,10 +18,10 @@ def calculate(network: dict,
         for direction in instructions:
             next_location_id = current_location[0] if direction == "L" else current_location[1]
             steps_taken += 1
-            print(
+            logger.info(
                 f"At location {current_location_id}, taking step number {steps_taken} going {direction} to location {next_location_id}.")
             if is_at_target_location(next_location_id, target_location_id):
-                print(f"The {next_location_id} target location has been reached")
+                logger.info(f"The {next_location_id} target location has been reached")
                 if target_location_id is None:
                     return steps_taken, next_location_id
                 else:
@@ -51,4 +55,4 @@ if __name__ == '__main__':
     result = calculate_from_file(file_name="day8_data.txt",
                                  starting_location="AAA",
                                  target_location="ZZZ")
-    print(f'The solution for Day 8 is: {result}')
+    logger.warning(f'The solution for Day 8 is: {result}')
