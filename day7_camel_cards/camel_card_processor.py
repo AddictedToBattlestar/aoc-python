@@ -1,4 +1,5 @@
 from day7_camel_cards.camel_card_calculator import get_ranking_of_hand, calculate_ranking_value
+from utilities.file_reader import read_lines_from_file
 
 
 class CamelCardBid:
@@ -41,10 +42,9 @@ def build_ordered_bids_by_value_of_hand(raw_camel_bid_list):
 
 
 def get_total_winnings_from_file(file_name):
-    with open(file_name, "r") as text_file:
-        raw_camel_bid_list = text_file.readlines()
-        ordered_camel_bid_list = build_ordered_bids_by_value_of_hand(raw_camel_bid_list)
-        return calculate_total_winnings(ordered_camel_bid_list)
+    raw_camel_bid_list = read_lines_from_file(file_name)
+    ordered_camel_bid_list = build_ordered_bids_by_value_of_hand(raw_camel_bid_list)
+    return calculate_total_winnings(ordered_camel_bid_list)
 
 
 if __name__ == '__main__':
