@@ -28,11 +28,12 @@ def order_bids_by_value_of_hand(camel_bid_list):
     return sorted(camel_bid_list, key=lambda bid: bid.value_of_hand)
 
 
-def calculate_total_winnings(ordered_camel_bid_list):
+def calculate_total_winnings(ordered_camel_bid_list: list[CamelCardBid]):
     total_winnings = 0
     current_bid_multiplier = 1
     for camel_card_bid in ordered_camel_bid_list:
         total_winnings += camel_card_bid.bid_amount * current_bid_multiplier
+        logger.info(f"Rank {current_bid_multiplier}, Hand: {camel_card_bid.raw_hand_data}, Bid: {camel_card_bid.bid_amount}, Total Bid: {total_winnings}, Details: ({camel_card_bid.general_ranking},{camel_card_bid.highest_card_ranking},{camel_card_bid.second_highest_card_ranking})")
         current_bid_multiplier += 1
     return total_winnings
 
@@ -57,3 +58,4 @@ if __name__ == '__main__':
     logger.warning(f"The total winnings are {result}")
     # 246838469 too low
     # 246728841 too low
+    # 248184404 too high

@@ -58,8 +58,10 @@ def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, Optional[str], Op
     del card_map[first_card_match]
 
     second_hand_ranking_found, second_card_match = get_next_hand_ranking(card_map)
-    if (first_hand_ranking_found == GeneralHandRanking.THREE_OF_A_KIND
-            and second_hand_ranking_found == GeneralHandRanking.ONE_PAIR):
+    if ((first_hand_ranking_found == GeneralHandRanking.THREE_OF_A_KIND
+            and second_hand_ranking_found == GeneralHandRanking.ONE_PAIR)
+        or first_hand_ranking_found == GeneralHandRanking.ONE_PAIR
+            and second_hand_ranking_found == GeneralHandRanking.THREE_OF_A_KIND):
         return GeneralHandRanking.FULL_HOUSE, first_card_match, second_card_match
     elif (first_hand_ranking_found == GeneralHandRanking.ONE_PAIR
           and second_hand_ranking_found == GeneralHandRanking.ONE_PAIR):

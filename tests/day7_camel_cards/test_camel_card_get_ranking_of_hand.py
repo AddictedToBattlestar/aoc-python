@@ -13,6 +13,8 @@ class TestGetRankingOfHand(TestCase):
     def test_full_house(self):
         self.assertEqual((GeneralHandRanking.FULL_HOUSE, "A", "K"), get_ranking_of_hand("AAAKK"))
         self.assertEqual((GeneralHandRanking.FULL_HOUSE, "A", "K"), get_ranking_of_hand("KKAAA"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, "3", "2"), get_ranking_of_hand("22233"))
+
 
     def test_three_of_a_kind(self):
         self.assertEqual((GeneralHandRanking.THREE_OF_A_KIND, "A", None), get_ranking_of_hand("AAAKQ"))
