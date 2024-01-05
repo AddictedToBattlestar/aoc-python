@@ -31,6 +31,15 @@ def calculate_ranking_value(general_ranking: GeneralHandRanking,
     return rank
 
 
+def get_highest_card_in_hand(raw_hand_data):
+    highest_card_ranking = get_rank_of_card(raw_hand_data[0])
+    for card in raw_hand_data[1:]:
+        rank = get_rank_of_card(card)
+        if rank > highest_card_ranking:
+            highest_card_ranking = rank
+    return "23456789TJQKA"[highest_card_ranking]
+
+
 def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, Optional[str], Optional[str]):
     card_map = build_card_map(raw_hand_data)
 
@@ -43,7 +52,8 @@ def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, Optional[str], Op
             highest_rank_in_hand = get_ranks_sorted(raw_hand_data)[-1]
             highest_card_in_hand = "23456789TJQKA"[highest_rank_in_hand]
             return GeneralHandRanking.HIGH_CARD, highest_card_in_hand, None
-        return GeneralHandRanking.UNKNOWN, None, None
+        highest_card_in_hand = get_highest_card_in_hand(raw_hand_data)
+        return GeneralHandRanking.UNKNOWN, highest_card_in_hand, None
 
     del card_map[first_card_match]
 

@@ -56,3 +56,4 @@ if __name__ == '__main__':
     result = get_total_winnings_from_file(file_name="day7_data.txt")
     logger.warning(f"The total winnings are {result}")
     # 246838469 too low
+    # 246728841 too low

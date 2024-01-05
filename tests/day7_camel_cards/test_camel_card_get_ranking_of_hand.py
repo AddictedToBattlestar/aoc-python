@@ -5,6 +5,7 @@ from src.day7_camel_cards.camel_card_calculator import get_ranking_of_hand, Gene
 class TestGetRankingOfHand(TestCase):
     def test_five_of_a_kind(self):
         self.assertEqual((GeneralHandRanking.FIVE_OF_A_KIND, "A", None), get_ranking_of_hand("AAAAA"))
+        self.assertEqual((GeneralHandRanking.FIVE_OF_A_KIND, "J", None), get_ranking_of_hand("JJJJJ"))
 
     def test_four_of_a_kind(self):
         self.assertEqual((GeneralHandRanking.FOUR_OF_A_KIND, "A", None), get_ranking_of_hand("AAAAK"))
@@ -33,4 +34,5 @@ class TestGetRankingOfHand(TestCase):
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("KTQJA"))
 
     def test_unknown(self):
-        self.assertEqual((GeneralHandRanking.UNKNOWN, None, None), get_ranking_of_hand("AQT97"))
+        self.assertEqual((GeneralHandRanking.UNKNOWN, "A", None), get_ranking_of_hand("AQT97"))
+        self.assertEqual((GeneralHandRanking.UNKNOWN, "9", None), get_ranking_of_hand("98732"))

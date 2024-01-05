@@ -5,7 +5,7 @@ from src.day7_camel_cards.camel_card_calculator import GeneralHandRanking, calcu
 
 '''
 Ranking notes:
-GeneralHandRanking * 100 + HighestCardRanking_FirstMatch + HighestCardRanking_FirstMatch
+GeneralHandRanking * 100 + highest_card_ranking + second_highest_card_ranking
 AAAAA: (7 * 10000) + (12 * 100) = 71200
 KKKKK:(7 * 10000) + (11 * 100) = 71100
 
@@ -91,7 +91,21 @@ class TestGetRanking(TestCase):
         [10300, GeneralHandRanking.HIGH_CARD, "5"],
         [10200, GeneralHandRanking.HIGH_CARD, "4"],
         [10100, GeneralHandRanking.HIGH_CARD, "3"],
-        [10000, GeneralHandRanking.HIGH_CARD, "2"]
+        [10000, GeneralHandRanking.HIGH_CARD, "2"],
+
+        [1200, GeneralHandRanking.UNKNOWN, "A"],
+        [1100, GeneralHandRanking.UNKNOWN, "K"],
+        [1000, GeneralHandRanking.UNKNOWN, "Q"],
+        [900, GeneralHandRanking.UNKNOWN, "J"],
+        [800, GeneralHandRanking.UNKNOWN, "T"],
+        [700, GeneralHandRanking.UNKNOWN, "9"],
+        [600, GeneralHandRanking.UNKNOWN, "8"],
+        [500, GeneralHandRanking.UNKNOWN, "7"],
+        [400, GeneralHandRanking.UNKNOWN, "6"],
+        [300, GeneralHandRanking.UNKNOWN, "5"],
+        [200, GeneralHandRanking.UNKNOWN, "4"],
+        [100, GeneralHandRanking.UNKNOWN, "3"],
+        [000, GeneralHandRanking.UNKNOWN, "2"]
     ])
     def test_ranking_calculator(self,
                                 expected_ranking: int,
