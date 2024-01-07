@@ -14,14 +14,14 @@ class CamelCardBid:
         self.general_ranking, self.highest_card_ranking, self.second_highest_card_ranking \
             = get_ranking_of_hand(raw_hand_data)
 
-        logger.info(
-            f"General ranking of {raw_hand_data}: {self.general_ranking}, {self.highest_card_ranking}, {self.second_highest_card_ranking}")
+        logger.warning(
+            f"{raw_hand_data},{bid_amount},{self.general_ranking.name},{self.general_ranking},{self.highest_card_ranking},{self.second_highest_card_ranking}")
 
         self.value_of_hand = calculate_ranking_value(self.general_ranking,
                                                      self.highest_card_ranking,
                                                      self.second_highest_card_ranking)
 
-        logger.info(f"Value of {raw_hand_data}: {self.value_of_hand}")
+        # logger.warning(f"Value of {raw_hand_data}: {self.value_of_hand}")
 
 
 def order_bids_by_value_of_hand(camel_bid_list):
@@ -33,7 +33,7 @@ def calculate_total_winnings(ordered_camel_bid_list: list[CamelCardBid]):
     current_bid_multiplier = 1
     for camel_card_bid in ordered_camel_bid_list:
         total_winnings += camel_card_bid.bid_amount * current_bid_multiplier
-        logger.info(f"Rank {current_bid_multiplier}, Hand: {camel_card_bid.raw_hand_data}, Bid: {camel_card_bid.bid_amount}, Total Bid: {total_winnings}, Details: ({camel_card_bid.general_ranking},{camel_card_bid.highest_card_ranking},{camel_card_bid.second_highest_card_ranking})")
+        logger.warning(f"Rank {current_bid_multiplier}, Hand: {camel_card_bid.raw_hand_data}, Bid: {camel_card_bid.bid_amount}, Total Bid: {total_winnings}, Details: ({camel_card_bid.general_ranking},{camel_card_bid.highest_card_ranking},{camel_card_bid.second_highest_card_ranking})")
         current_bid_multiplier += 1
     return total_winnings
 

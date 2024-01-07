@@ -3,7 +3,6 @@ from typing import Optional
 
 
 class GeneralHandRanking(IntEnum):
-    UNKNOWN = 0
     HIGH_CARD = 1
     ONE_PAIR = 2
     TWO_PAIR = 3
@@ -47,13 +46,10 @@ def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, Optional[str], Op
     if first_hand_ranking_found in [GeneralHandRanking.FIVE_OF_A_KIND, GeneralHandRanking.FOUR_OF_A_KIND]:
         return first_hand_ranking_found, first_card_match, None
 
-    if first_hand_ranking_found == GeneralHandRanking.UNKNOWN:
-        if is_high_card_hand(raw_hand_data):
-            highest_rank_in_hand = get_ranks_sorted(raw_hand_data)[-1]
-            highest_card_in_hand = "23456789TJQKA"[highest_rank_in_hand]
-            return GeneralHandRanking.HIGH_CARD, highest_card_in_hand, None
-        highest_card_in_hand = get_highest_card_in_hand(raw_hand_data)
-        return GeneralHandRanking.UNKNOWN, highest_card_in_hand, None
+    if first_hand_ranking_found == GeneralHandRanking.HIGH_CARD:
+        highest_rank_in_hand = get_ranks_sorted(raw_hand_data)[-1]
+        highest_card_in_hand = "23456789TJQKA"[highest_rank_in_hand]
+        return GeneralHandRanking.HIGH_CARD, highest_card_in_hand, None
 
     del card_map[first_card_match]
 
@@ -90,16 +86,13 @@ def get_next_hand_ranking(card_map):
                 return GeneralHandRanking.THREE_OF_A_KIND, card
             if card_map[card].count == 2:
                 return GeneralHandRanking.ONE_PAIR, card
-    return GeneralHandRanking.UNKNOWN, None
+    return GeneralHandRanking.HIGH_CARD, None
 
 
-def is_high_card_hand(hand) -> bool:
-    ranks_in_hand = get_ranks_sorted(hand)
-    previous_rank = ranks_in_hand[0]
-    for current_rank in ranks_in_hand[1:]:
-        if previous_rank + 1 != current_rank:
+def is_high_card_hand(card_map) -> bool:
+    for card in card_map:
+        if card_map[card].count != 1:
             return False
-        previous_rank = current_rank
     return True
 
 

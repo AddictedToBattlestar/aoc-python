@@ -18,7 +18,6 @@ class TestGetRankingOfHand(TestCase):
         self.assertEqual((GeneralHandRanking.FULL_HOUSE, "3", "2"), get_ranking_of_hand("23232"))
         self.assertEqual((GeneralHandRanking.FULL_HOUSE, "3", "2"), get_ranking_of_hand("32223"))
 
-
     def test_three_of_a_kind(self):
         self.assertEqual((GeneralHandRanking.THREE_OF_A_KIND, "A", None), get_ranking_of_hand("AAAKQ"))
 
@@ -33,13 +32,11 @@ class TestGetRankingOfHand(TestCase):
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("AKQJT"))
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "J", None), get_ranking_of_hand("2345J"))
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("J345A"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("AQT97"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, "9", None), get_ranking_of_hand("98732"))
 
     def test_high_card_reversed(self):
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("TJQKA"))
 
     def test_high_card_scrambled(self):
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("KTQJA"))
-
-    def test_unknown(self):
-        self.assertEqual((GeneralHandRanking.UNKNOWN, "A", None), get_ranking_of_hand("AQT97"))
-        self.assertEqual((GeneralHandRanking.UNKNOWN, "9", None), get_ranking_of_hand("98732"))

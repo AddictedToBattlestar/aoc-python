@@ -1,3 +1,4 @@
+import logging
 from unittest import TestCase
 
 from parameterized import parameterized
