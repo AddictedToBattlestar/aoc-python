@@ -30,7 +30,7 @@ class CamelCardCounter:
 
 
 def calculate_ranking_value(general_ranking: GeneralHandRanking, total_card_value: int):
-    return general_ranking * 100 + total_card_value
+    return general_ranking * 10000 + total_card_value
 
 
 def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, int):
@@ -53,10 +53,10 @@ def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, int):
             and second_hand_ranking_found == GeneralHandRanking.ONE_PAIR)
         or first_hand_ranking_found == GeneralHandRanking.ONE_PAIR
             and second_hand_ranking_found == GeneralHandRanking.THREE_OF_A_KIND):
-        return GeneralHandRanking.FULL_HOUSE, get_rank_of_card(first_card_match) + get_rank_of_card(second_card_match)
+        return GeneralHandRanking.FULL_HOUSE, get_rank_of_card(first_card_match)*100 + get_rank_of_card(second_card_match)
     elif (first_hand_ranking_found == GeneralHandRanking.ONE_PAIR
           and second_hand_ranking_found == GeneralHandRanking.ONE_PAIR):
-        return GeneralHandRanking.TWO_PAIR, get_rank_of_card(first_card_match) + get_rank_of_card(second_card_match)
+        return GeneralHandRanking.TWO_PAIR, get_rank_of_card(first_card_match)*100 + get_rank_of_card(second_card_match)
     else:
         return first_hand_ranking_found, get_rank_of_card(first_card_match)
 

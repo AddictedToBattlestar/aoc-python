@@ -12,12 +12,12 @@ from src.settings import PROJECT_ROOT
 class TestCamelCardBid(TestCase):
 
     @parameterized.expand([
-        ["AAAAA", 100, GeneralHandRanking.FIVE_OF_A_KIND, 14, 714],
-        ["AAAAK", 99, GeneralHandRanking.FOUR_OF_A_KIND, 14, 614],
-        ["99932", 98, GeneralHandRanking.THREE_OF_A_KIND, 9, 409],
-        ["98733", 97, GeneralHandRanking.ONE_PAIR, 3, 203],
-        ["JT987", 96, GeneralHandRanking.HIGH_CARD, 45, 145],
-        ["KKKQQ", 96, GeneralHandRanking.FULL_HOUSE, 25, 525],
+        ["AAAAA", 100, GeneralHandRanking.FIVE_OF_A_KIND, 14, 70014],
+        ["AAAAK", 99, GeneralHandRanking.FOUR_OF_A_KIND, 14, 60014],
+        ["99932", 98, GeneralHandRanking.THREE_OF_A_KIND, 9, 40009],
+        ["98733", 97, GeneralHandRanking.ONE_PAIR, 3, 20003],
+        ["JT987", 96, GeneralHandRanking.HIGH_CARD, 45, 10045],
+        ["KKKQQ", 96, GeneralHandRanking.FULL_HOUSE, 1312, 51312],
 
     ])
     def test_creation(self,

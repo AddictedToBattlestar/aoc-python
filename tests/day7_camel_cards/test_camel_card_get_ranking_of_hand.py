@@ -11,12 +11,12 @@ class TestGetRankingOfHand(TestCase):
         self.assertEqual((GeneralHandRanking.FOUR_OF_A_KIND, 14), get_ranking_of_hand("AAAAK"))
 
     def test_full_house(self):
-        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 27), get_ranking_of_hand("AAAKK"))
-        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 27), get_ranking_of_hand("KKAAA"))
-        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 5), get_ranking_of_hand("22233"))
-        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 5), get_ranking_of_hand("33222"))
-        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 5), get_ranking_of_hand("23232"))
-        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 5), get_ranking_of_hand("32223"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 1413), get_ranking_of_hand("AAAKK"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 1413), get_ranking_of_hand("KKAAA"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 302), get_ranking_of_hand("22233"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 302), get_ranking_of_hand("33222"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 302), get_ranking_of_hand("23232"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, 302), get_ranking_of_hand("32223"))
 
     def test_three_of_a_kind(self):
         self.assertEqual((GeneralHandRanking.THREE_OF_A_KIND, 14), get_ranking_of_hand("AAAKQ"))
@@ -26,7 +26,7 @@ class TestGetRankingOfHand(TestCase):
         self.assertEqual((GeneralHandRanking.ONE_PAIR, 3), get_ranking_of_hand("98733"))
 
     def test_two_pair(self):
-        self.assertEqual((GeneralHandRanking.TWO_PAIR, 27), get_ranking_of_hand("AAKKQ"))
+        self.assertEqual((GeneralHandRanking.TWO_PAIR, 1413), get_ranking_of_hand("AAKKQ"))
 
     def test_high_card(self):
         self.assertEqual((GeneralHandRanking.HIGH_CARD, 60), get_ranking_of_hand("AKQJT"))
