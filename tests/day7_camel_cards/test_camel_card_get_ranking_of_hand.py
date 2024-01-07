@@ -14,6 +14,9 @@ class TestGetRankingOfHand(TestCase):
         self.assertEqual((GeneralHandRanking.FULL_HOUSE, "A", "K"), get_ranking_of_hand("AAAKK"))
         self.assertEqual((GeneralHandRanking.FULL_HOUSE, "A", "K"), get_ranking_of_hand("KKAAA"))
         self.assertEqual((GeneralHandRanking.FULL_HOUSE, "3", "2"), get_ranking_of_hand("22233"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, "3", "2"), get_ranking_of_hand("33222"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, "3", "2"), get_ranking_of_hand("23232"))
+        self.assertEqual((GeneralHandRanking.FULL_HOUSE, "3", "2"), get_ranking_of_hand("32223"))
 
 
     def test_three_of_a_kind(self):
