@@ -88,3 +88,10 @@ class TestCamelCardBid(TestCase):
         total_winnings = get_total_winnings_from_file(sample_data_test_file)
 
         self.assertEqual(1343, total_winnings)
+
+    def test_processing_from_file_example3(self):
+        # ref: https://www.reddit.com/r/adventofcode/comments/18cr4xr/2023_day_7_better_example_input_not_a_spoiler/
+        sample_data_test_file = PROJECT_ROOT + "/day7_camel_cards/day7_sample_data3.txt"
+        total_winnings = get_total_winnings_from_file(sample_data_test_file)
+
+        self.assertEqual(6592, total_winnings)

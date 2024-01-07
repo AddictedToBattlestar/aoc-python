@@ -31,6 +31,8 @@ class TestGetRankingOfHand(TestCase):
 
     def test_high_card(self):
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("AKQJT"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, "J", None), get_ranking_of_hand("2345J"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("J345A"))
 
     def test_high_card_reversed(self):
         self.assertEqual((GeneralHandRanking.HIGH_CARD, "A", None), get_ranking_of_hand("TJQKA"))
