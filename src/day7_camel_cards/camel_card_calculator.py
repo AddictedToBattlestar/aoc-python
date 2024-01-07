@@ -11,6 +11,15 @@ class GeneralHandRanking(IntEnum):
     FOUR_OF_A_KIND = 6
     FIVE_OF_A_KIND = 7
 
+# A, 14
+# K, 13
+# Q, 12
+# J, 11
+# T, 10
+# 9, 9
+# ...
+
+
 
 class CamelCardCounter:
     def __init__(self, card: str):
