@@ -20,7 +20,6 @@ class GeneralHandRanking(IntEnum):
 # ...
 
 
-
 class CamelCardCounter:
     def __init__(self, card: str):
         self.card = card
@@ -30,35 +29,22 @@ class CamelCardCounter:
         self.count += 1
 
 
-def calculate_ranking_value(general_ranking: GeneralHandRanking,
-                            highest_card_ranking: Optional[str],
-                            second_highest_card_ranking: Optional[str]) -> int:
-    rank = general_ranking * 10000 + get_rank_of_card(highest_card_ranking) * 100
-    if second_highest_card_ranking is not None:
-        rank += get_rank_of_card(second_highest_card_ranking)
-    return rank
+def calculate_ranking_value(general_ranking: GeneralHandRanking, total_card_value: int):
+    return general_ranking * 100 + total_card_value
 
 
-def get_highest_card_in_hand(raw_hand_data):
-    highest_card_ranking = get_rank_of_card(raw_hand_data[0])
-    for card in raw_hand_data[1:]:
-        rank = get_rank_of_card(card)
-        if rank > highest_card_ranking:
-            highest_card_ranking = rank
-    return "23456789TJQKA"[highest_card_ranking]
-
-
-def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, Optional[str], Optional[str]):
+def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, int):
     card_map = build_card_map(raw_hand_data)
 
     first_hand_ranking_found, first_card_match = get_next_hand_ranking(card_map)
     if first_hand_ranking_found in [GeneralHandRanking.FIVE_OF_A_KIND, GeneralHandRanking.FOUR_OF_A_KIND]:
-        return first_hand_ranking_found, first_card_match, None
+        return first_hand_ranking_found, get_rank_of_card(first_card_match)
 
     if first_hand_ranking_found == GeneralHandRanking.HIGH_CARD:
-        highest_rank_in_hand = get_ranks_sorted(raw_hand_data)[-1]
-        highest_card_in_hand = "23456789TJQKA"[highest_rank_in_hand]
-        return GeneralHandRanking.HIGH_CARD, highest_card_in_hand, None
+        total_card_value = 0
+        for card in raw_hand_data:
+            total_card_value += get_rank_of_card(card)
+        return GeneralHandRanking.HIGH_CARD, total_card_value
 
     del card_map[first_card_match]
 
@@ -67,12 +53,12 @@ def get_ranking_of_hand(raw_hand_data) -> (GeneralHandRanking, Optional[str], Op
             and second_hand_ranking_found == GeneralHandRanking.ONE_PAIR)
         or first_hand_ranking_found == GeneralHandRanking.ONE_PAIR
             and second_hand_ranking_found == GeneralHandRanking.THREE_OF_A_KIND):
-        return GeneralHandRanking.FULL_HOUSE, first_card_match, second_card_match
+        return GeneralHandRanking.FULL_HOUSE, get_rank_of_card(first_card_match) + get_rank_of_card(second_card_match)
     elif (first_hand_ranking_found == GeneralHandRanking.ONE_PAIR
           and second_hand_ranking_found == GeneralHandRanking.ONE_PAIR):
-        return GeneralHandRanking.TWO_PAIR, first_card_match, second_card_match
+        return GeneralHandRanking.TWO_PAIR, get_rank_of_card(first_card_match) + get_rank_of_card(second_card_match)
     else:
-        return first_hand_ranking_found, first_card_match, None
+        return first_hand_ranking_found, get_rank_of_card(first_card_match)
 
 
 def build_card_map(raw_hand_data):
@@ -109,7 +95,7 @@ def get_rank_of_card(card: Optional[str]):
     if card is None:
         return 0
     else:
-        return "23456789TJQKA".index(card)
+        return "23456789TJQKA".index(card) + 2
 
 
 def get_ranks_sorted(hand):

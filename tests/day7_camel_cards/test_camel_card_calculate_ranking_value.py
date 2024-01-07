@@ -3,23 +3,6 @@ from parameterized import parameterized
 
 from src.day7_camel_cards.camel_card_calculator import GeneralHandRanking, calculate_ranking_value
 
-'''
-Ranking notes:
-GeneralHandRanking * 100 + highest_card_ranking + second_highest_card_ranking
-AAAAA: (7 * 10000) + (12 * 100) = 71200
-KKKKK:(7 * 10000) + (11 * 100) = 71100
-
-AAAAK: (6 * 10000) + (12 * 100) = 61200
-QQQQA: (6 * 10000) + (10 * 100) = 61100
-
-AAAKK: (5 * 10000) + (12 * 100) + 11 = 51211
-KKKQQ: (5 * 10000) + (11 * 100) + 10 = 51101
-33322: (5 * 10000) + (1 * 100) + 0 =   50100 
-
-AAKKQ: (3 * 10000) + (12 * 100) + 11 = 31211
-KKQQJ: (3 * 10000) + (11 * 100) + 10 = 31110
-'''
-
 
 class TestGetRanking(TestCase):
     @parameterized.expand([
@@ -96,11 +79,10 @@ class TestGetRanking(TestCase):
     def test_ranking_calculator(self,
                                 expected_ranking: int,
                                 general_hand_ranking: GeneralHandRanking,
-                                highest_card_ranking: str):
+                                total_card_value:  int):
         self.assertEqual(expected_ranking,
                          calculate_ranking_value(general_hand_ranking,
-                                                 highest_card_ranking,
-                                                 None))
+                                                 total_card_value))
 
     @parameterized.expand([
         [527, GeneralHandRanking.FULL_HOUSE, 27],
@@ -110,12 +92,10 @@ class TestGetRanking(TestCase):
     def test_ranking_calculator_full_house(self,
                                            expected_ranking: int,
                                            general_hand_ranking: GeneralHandRanking,
-                                           highest_card_ranking: str,
-                                           second_highest_card_ranking: str):
+                                           total_card_value: int):
         self.assertEqual(expected_ranking,
                          calculate_ranking_value(general_hand_ranking,
-                                                 highest_card_ranking,
-                                                 second_highest_card_ranking))
+                                                 total_card_value))
 
     @parameterized.expand([
         [327, GeneralHandRanking.TWO_PAIR, 27],
@@ -125,9 +105,7 @@ class TestGetRanking(TestCase):
     def test_ranking_calculator_two_pair(self,
                                          expected_ranking: int,
                                          general_hand_ranking: GeneralHandRanking,
-                                         highest_card_ranking: str,
-                                         second_highest_card_ranking: str):
+                                         total_card_value: int):
         self.assertEqual(expected_ranking,
                          calculate_ranking_value(general_hand_ranking,
-                                                 highest_card_ranking,
-                                                 second_highest_card_ranking))
+                                                 total_card_value))

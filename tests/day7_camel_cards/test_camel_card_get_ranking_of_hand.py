@@ -29,14 +29,14 @@ class TestGetRankingOfHand(TestCase):
         self.assertEqual((GeneralHandRanking.TWO_PAIR, 27), get_ranking_of_hand("AAKKQ"))
 
     def test_high_card(self):
-        self.assertEqual((GeneralHandRanking.HIGH_CARD, 14), get_ranking_of_hand("AKQJT"))
-        self.assertEqual((GeneralHandRanking.HIGH_CARD, 11), get_ranking_of_hand("2345J"))
-        self.assertEqual((GeneralHandRanking.HIGH_CARD, 14), get_ranking_of_hand("J345A"))
-        self.assertEqual((GeneralHandRanking.HIGH_CARD, 14), get_ranking_of_hand("AQT97"))
-        self.assertEqual((GeneralHandRanking.HIGH_CARD, 9), get_ranking_of_hand("98732"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, 60), get_ranking_of_hand("AKQJT"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, 25), get_ranking_of_hand("2345J"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, 37), get_ranking_of_hand("J345A"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, 52), get_ranking_of_hand("AQT97"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, 29), get_ranking_of_hand("98732"))
 
     def test_high_card_reversed(self):
-        self.assertEqual((GeneralHandRanking.HIGH_CARD, 14), get_ranking_of_hand("TJQKA"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, 60), get_ranking_of_hand("TJQKA"))
 
     def test_high_card_scrambled(self):
-        self.assertEqual((GeneralHandRanking.HIGH_CARD, 14), get_ranking_of_hand("KTQJA"))
+        self.assertEqual((GeneralHandRanking.HIGH_CARD, 60), get_ranking_of_hand("KTQJA"))

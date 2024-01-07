@@ -12,20 +12,19 @@ from src.settings import PROJECT_ROOT
 class TestCamelCardBid(TestCase):
 
     @parameterized.expand([
-        ["AAAAA", 100, GeneralHandRanking.FIVE_OF_A_KIND, "A", None, 71200],
-        ["AAAAK", 99, GeneralHandRanking.FOUR_OF_A_KIND, "A", None, 61200],
-        ["99932", 98, GeneralHandRanking.THREE_OF_A_KIND, "9", None, 40700],
-        ["98733", 97, GeneralHandRanking.ONE_PAIR, "3", None, 20100],
-        ["JT987", 96, GeneralHandRanking.HIGH_CARD, "J", None, 10900],
-        ["KKKQQ", 96, GeneralHandRanking.FULL_HOUSE, "K", "Q", 51110],
+        ["AAAAA", 100, GeneralHandRanking.FIVE_OF_A_KIND, 14, 714],
+        ["AAAAK", 99, GeneralHandRanking.FOUR_OF_A_KIND, 14, 614],
+        ["99932", 98, GeneralHandRanking.THREE_OF_A_KIND, 9, 409],
+        ["98733", 97, GeneralHandRanking.ONE_PAIR, 3, 203],
+        ["JT987", 96, GeneralHandRanking.HIGH_CARD, 45, 145],
+        ["KKKQQ", 96, GeneralHandRanking.FULL_HOUSE, 25, 525],
 
     ])
     def test_creation(self,
                       raw_hand_data: str,
                       bid_amount: int,
                       hand_ranking: GeneralHandRanking,
-                      highest_card_in_hand: str,
-                      second_highest_card_in_hand: str,
+                      total_card_value: int,
                       expected_value_of_hand: int):
 
         camel_bid = CamelCardBid(raw_hand_data, bid_amount)
@@ -33,8 +32,7 @@ class TestCamelCardBid(TestCase):
         self.assertEqual(camel_bid.raw_hand_data, raw_hand_data)
         self.assertEqual(camel_bid.bid_amount, bid_amount)
         self.assertEqual(camel_bid.general_ranking, hand_ranking)
-        self.assertEqual(camel_bid.highest_card_ranking, highest_card_in_hand)
-        self.assertEqual(camel_bid.second_highest_card_ranking, second_highest_card_in_hand)
+        self.assertEqual(camel_bid.total_card_value, total_card_value)
         self.assertEqual(camel_bid.value_of_hand, expected_value_of_hand)
 
     def test_processing_order(self):
