@@ -27,3 +27,7 @@ class MatrixGrouping:
             if group_location.x == location.x - 1 and group_location.y == location.y:
                 return True
         return False
+
+    def add_location_if_adjacent(self, location: MatrixCoordinate):
+        if self.is_adjacent(location):
+            self.locations.append(location)
