@@ -66,3 +66,26 @@ def test_addition():
     assert len(subject_X.locations) == 15
     subject_O = subject["O"]
     assert len(subject_O.locations) == 10
+
+def test_segregation():
+    identifier_groups = {
+        "X": MatrixGrouping("X"),
+        "O": MatrixGrouping("O")
+    }
+
+    fill_matrix_line(identifier_groups, "XX", 0)
+    fill_matrix_line(identifier_groups, "XO", 1)
+
+    subject = identifier_groups["X"]
+    result = subject.segregate()
+
+    result_keys = list(result.keys())
+    assert len(result_keys) == 1
+    result_group = result.get(result_keys[0])
+    result_group.sort()
+    assert result_group == [
+        MatrixCoordinate(0, 0, "X"),
+        MatrixCoordinate(0, 1, "X"),
+        MatrixCoordinate(1, 0, "X")
+    ]
+

@@ -1,3 +1,5 @@
+from typing import Dict
+
 from src.utilities.matrix.matrix_coordinate import MatrixCoordinate
 
 
@@ -27,3 +29,6 @@ class MatrixGrouping:
             if group_location.x == location.x - 1 and group_location.y == location.y:
                 return True
         return False
+
+    def segregate(self) -> Dict[int, list[MatrixCoordinate]]:
+        return {0: self.locations}

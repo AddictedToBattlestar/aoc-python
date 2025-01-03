@@ -7,6 +7,9 @@ class MatrixCoordinate:
     def __str__(self):
         return '({self.x},{self.y})'.format(self=self)
 
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
     def __lt__(self, other):
         if self.x < other.x:
             return True
