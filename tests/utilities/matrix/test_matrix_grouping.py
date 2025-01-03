@@ -6,43 +6,30 @@ from src.utilities.matrix.matrix_coordinate import MatrixCoordinate
 from src.utilities.matrix.matrix_grouping import MatrixGrouping
 
 
-#  012345
-# 0
+#   123x
 # 1  T
-# 2 TXTT
-# 3  TTXT
-# 4    T
+# 2 TXT
+# 3  T
+# y
 @pytest.mark.parametrize("test_location, expected", [
     (MatrixCoordinate(1, 1, "X"), False),
     (MatrixCoordinate(2, 1, "X"), True),
     (MatrixCoordinate(3, 1, "X"), False),
-    (MatrixCoordinate(4, 1, "X"), False),
-    (MatrixCoordinate(5, 1, "X"), False),
 
     (MatrixCoordinate(1, 2, "X"), True),
     #
     (MatrixCoordinate(3, 2, "X"), True),
-    (MatrixCoordinate(4, 2, "X"), True),
-    (MatrixCoordinate(5, 2, "X"), False),
+
 
     (MatrixCoordinate(1, 3, "X"), False),
     (MatrixCoordinate(2, 3, "X"), True),
-    (MatrixCoordinate(3, 3, "X"), True),
-    #
-    (MatrixCoordinate(5, 3, "X"), True),
+    (MatrixCoordinate(3, 3, "X"), False),
 
-    (MatrixCoordinate(1, 4, "X"), False),
-    (MatrixCoordinate(2, 4, "X"), False),
-    (MatrixCoordinate(3, 4, "X"), False),
-    (MatrixCoordinate(4, 4, "X"), True),
-    (MatrixCoordinate(5, 4, "X"), False)
 ])
 def test_matrix_grouping_adjacent(test_location, expected):
-    subject = MatrixGrouping("X")
-    subject.add_location(MatrixCoordinate(2, 2, "X"))
-    subject.add_location(MatrixCoordinate(4, 3, "X"))
+    location = MatrixCoordinate(2, 2, "X")
 
-    assert subject.is_adjacent(test_location) == expected
+    assert MatrixGrouping.is_adjacent(location, test_location) == expected
 
 
 def fill_matrix_line(matrix_groups: Dict[str, MatrixGrouping], matrix_line_as_string: str, y_index: int):
@@ -89,3 +76,25 @@ def test_segregation():
         MatrixCoordinate(1, 0, "X")
     ]
 
+def test_segregation_multiple_group():
+    identifier_groups = {
+        "X": MatrixGrouping("X"),
+        "O": MatrixGrouping("O")
+    }
+
+    fill_matrix_line(identifier_groups, "XO", 0)
+    fill_matrix_line(identifier_groups, "OX", 1)
+
+    subject = identifier_groups["X"]
+    result = subject.segregate()
+
+    result_keys = list(result.keys())
+    assert len(result_keys) == 2
+    result_group_0 = result.get(result_keys[0])
+    assert result_group_0 == [
+        MatrixCoordinate(1, 1, "X")
+    ]
+    result_group_1 = result.get(result_keys[1])
+    assert result_group_1 == [
+        MatrixCoordinate(0, 0, "X")
+    ]
