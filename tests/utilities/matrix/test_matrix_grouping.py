@@ -1,4 +1,3 @@
-from pickle import FALSE
 from typing import Dict
 
 import pytest
@@ -40,8 +39,8 @@ from src.utilities.matrix.matrix_grouping import MatrixGrouping
 ])
 def test_matrix_grouping_adjacent(test_location, expected):
     subject = MatrixGrouping("X")
-    subject.add_location(MatrixCoordinate(2, 2))
-    subject.add_location(MatrixCoordinate(4, 3))
+    subject.add_location(MatrixCoordinate(2, 2, "X"))
+    subject.add_location(MatrixCoordinate(4, 3, "X"))
 
     assert subject.is_adjacent(test_location) == expected
 
