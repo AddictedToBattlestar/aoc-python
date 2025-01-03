@@ -51,30 +51,19 @@ def fill_matrix_line(matrix_groups: Dict[str, MatrixGrouping], matrix_line_as_st
         matching_matrix_group = matrix_groups[matrix_character]
         matching_matrix_group.add_location(MatrixCoordinate(x_index, y_index, matrix_character))
 
-
-#   012345x
-#
-# 0 OOOOOO
-# 1 OXXXOO
-# 2 OXOXOO
-# 3 OXXXXX
-# 4 OOOXOX
-# 5 OOOXXX
-# y
 def test_addition():
     subject = {
         "X": MatrixGrouping("X"),
         "O": MatrixGrouping("O")
     }
 
-    fill_matrix_line(subject, "OOOOOO", 0)
-    fill_matrix_line(subject, "OXXXOO", 1)
-    fill_matrix_line(subject, "OXOXOO", 2)
-    fill_matrix_line(subject, "OXXXXX", 3)
-    fill_matrix_line(subject, "OOOXOX", 4)
-    fill_matrix_line(subject, "OOOXXX", 5)
+    fill_matrix_line(subject, "XXXOO", 0)
+    fill_matrix_line(subject, "XOXOO", 1)
+    fill_matrix_line(subject, "XXXXX", 2)
+    fill_matrix_line(subject, "OOXOX", 3)
+    fill_matrix_line(subject, "OOXXX", 4)
 
     subject_X = subject["X"]
     assert len(subject_X.locations) == 15
     subject_O = subject["O"]
-    assert len(subject_O.locations) == 21
+    assert len(subject_O.locations) == 10
